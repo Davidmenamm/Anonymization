@@ -1,6 +1,7 @@
 """ Program Main File """
 # imports
 import uvicorn
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
@@ -13,8 +14,8 @@ app = FastAPI()
 
 # cors
 origins = [
-    "http://localhost:3000",
-    "http://localhost:3000/"
+    'http://localhost:3000',
+    'https://anonymization-cli.herokuapp.com'
 ]
 
 app.add_middleware(
@@ -28,8 +29,9 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
+    path = 'data/hypothesis_0.csv'
     # dataset
-    dataset = pd.read_csv(r'back_end\\fastapi_server\\data\\hypothesis_0.csv', engine='c')
+    dataset = pd.read_csv(path, engine='c')
     # target
     target = dataset.iloc[:, 0]
     # features
