@@ -1,10 +1,18 @@
-import {Textbox} from '../../../common/UI/Textbox'
+import { makeStyles } from '@material-ui/core/styles';
+import { TextField, useTheme } from '@material-ui/core';
 
-export const JsonText = ({text,setText}) => {
+const useStyles = makeStyles((theme) => ({
+	defaultTextbox: {
+	}
+  }));
+
+export const JsonText = ({label, text,setText}) => {
+	const theme = useTheme()
+	const classes = useStyles(theme);
 	return (
 		<>
-			<label>Enter your name:</label>
-			<Textbox text={text} setText = {setText}/>
+			<label>{label}</label>
+			<TextField value={text} onChange={e => setText(e.target.value)}/>
 		</>
 	);
 }
