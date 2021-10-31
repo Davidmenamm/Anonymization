@@ -1,23 +1,19 @@
 """ Program Main File """
-# imports
 import uvicorn
-import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import GaussianNB
-from sklearn import metrics
+from endpoints import router
 
-# main obj
+
+""" main app """
 app = FastAPI()
 
-# cors
+""" cors """
 origins = [
     'http://localhost:3000',
     'https://anonymization-cli.herokuapp.com'
 ]
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -26,7 +22,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(router.router)
 
+""" root endpoint """
 @app.get("/")
 async def root():
     path = 'data/hypothesis_0.csv'
@@ -36,16 +34,8 @@ async def root():
     target = dataset.iloc[:, 0]
     # features
     features = dataset.iloc[:, 1: len(dataset.columns)-1]
-    # train / test
-    X_train, X_test, y_train, y_test = train_test_split(
-        features, target, stratify=target, train_size=0.67)
-    # run classification
-    nbc = GaussianNB()
-    nbc.fit(X_train, y_train)
-    y_pred = nbc.predict(X_test)
-    acc = metrics.accuracy_score(y_test, y_pred)
-    return {"accuracy": f"Accuracy is {acc}"}
 
 
+""" uvicorn server run """
 if __name__=="__main__":
     uvicorn.run("main:app",host='localhost', port=4557, reload=True, debug=True, workers=3)
