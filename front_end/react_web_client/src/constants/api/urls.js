@@ -14,4 +14,4 @@ const baseUrl = prodBaseUrl || localBaseUrl
 
 // Categories:
 // anonymization
-export const urlAnonymizeData = `${baseUrl}/endpoints/data_science/anonymization/`
+export const urlAnonymizeData = `${baseUrl}/endpoints/data_science/anonymization/files`
