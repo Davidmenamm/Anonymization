@@ -4,7 +4,6 @@ from .anonymize import anonymize
 from os import SEEK_SET, SEEK_END
 from io import StringIO, BytesIO
 import pandas as pd
-import feather
 import timeit
 
 router = APIRouter(

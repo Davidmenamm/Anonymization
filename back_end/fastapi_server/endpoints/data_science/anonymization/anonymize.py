@@ -10,7 +10,7 @@ def anonymize(df, config):
 	if (config in validMethods):
 		method = config
 		params['method'] = method
-		params['columns'] = ['text']
+		params['columns'] = ['DestCityName']
 		params['config'] = {
 			'maskNum' : 3
 		}

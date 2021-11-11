@@ -12,6 +12,7 @@ def mask(df, columns, maskNum):
 	# fill nulls with empty string
 	df.fillna(value = {'text': ''}, inplace=True)
 	# vectors
+	print('size', df[col].size)
 	maskVector = pd.Series(s, index=range(df[col].size) )
 	strLengthVector = df[col].str.len()
 	notMaskedStrVector = df[col].str[:n*4]
