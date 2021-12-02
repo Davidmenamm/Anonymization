@@ -1,10 +1,11 @@
 from fastapi import APIRouter, File, Form
 from starlette.responses import StreamingResponse
 from .anonymize import anonymize
-from os import SEEK_SET, SEEK_END
 from io import StringIO, BytesIO
 import pandas as pd
 import timeit
+import json
+from utils.preprocess import preprocess
 
 router = APIRouter(
 			prefix="/anonymization",
@@ -28,8 +29,12 @@ async def anonymization(file: bytes = File(...), config: str = Form(...)):
 	# print( df )
 	# print( df.info() )
 	# df = pd.concat([inputDf]*5000)
+	# config object
+	config_obj = json.loads(config)
+	# preprocess
+	preprocess(df)
 	# send to function to handle anonymization
-	results_df = anonymize(df, config)
+	results_df = anonymize(df, config_obj)
 	# print( results_df )
 	inMemoryFile.close()
 	# output file

@@ -48,18 +48,18 @@ export const SendRequest = () => {
 	// return
 	return (
 		<>
-			<form action={urlAnonymizeData} enctype="multipart/form-data" method="post">
+			{/* <form action={urlAnonymizeData} enctype="multipart/form-data" method="post">
 				<input name="file" type="file" accept='.parquet'/>
 				<TextField name='config' className={classes.defaultTextbox} multiline={true} minRows={15} value={text} onChange={e => setText(e.target.value)}/>
 				<input type="submit"/>
-			</form>
-			{/* <form onSubmit={submit}>
+			</form> */}
+			<form action={urlAnonymizeData} enctype="multipart/form-data" method="post">
 				<div>
 					<p>{TEXTBOX_LBL}</p>
-					<TextField name='jsonText' className={classes.defaultTextbox} multiline={true} minRows={15} value={text} onChange={e => setText(e.target.value)}/>
+					<TextField name='config' className={classes.defaultTextbox} multiline={true} minRows={15} value={text} onChange={e => setText(e.target.value)}/>
 					<Button className={classes.defaultButton}>
 						<label>
-							<input name='uploadFile' type="file" accept='.csv' className={classes.hideInput}/>
+							<input name='file' type="file" accept='.parquet' className={classes.hideInput}/>
 							{UPLOAD_BUTTON}
 						</label>
 					</Button>
@@ -67,7 +67,7 @@ export const SendRequest = () => {
 				<div>
 					<Button name='sendButton' type='submit' className={classes.defaultButton}> {SEND_BUTTON} </Button>
 				</div>
-			</form> */}
+			</form>
 		</>
 	);
 }
