@@ -1,20 +1,20 @@
-
+/* colors */
 export const Colors = {
-	principal: '#1976d2',
-	secondary: '#ffe64b',
+	// main
+	principal: '#1976d2', // blue
+	secondary: '#ffe64b', // yellow
 	third: '',
 	fourt: '',
-  
-	// contrastes
-	topMenu: '#f6f6f6', // blanco
-	background: '#d8d8d8', // gris
-	dark: '#000000', // negro
-	white: '#FFFFFF', // blanco
-  
-	// colores de eventos
-	success: '#31b87b', // verde-turquesa
-	important: '',
-	error: '#b83131',
-	warning: '#e3ac14'
+	// contrasts
+	topMenu: '#f6f6f6', // white-grey
+	background: '#d8d8d8', // grey
+	dark: '#000000', // black
+	white: '#FFFFFF', // white
+	// event colors
+	success: '#31b87b', // green
+	important: '#1976d2', // blue
+	error: '#b83131', // red
+	warning: '#e3ac14' // yellow
   };
+  
   

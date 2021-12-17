@@ -1,9 +1,10 @@
-/**
- * Main Theme
- */
+/* Main Theme */
+
+/* imports */
  import { createMuiTheme } from '@material-ui/core';
  import { Colors } from './colors';
 
+ /* theme */
 export const theme = createMuiTheme({
 	palette: {
 	  primary: {
@@ -50,3 +51,5 @@ export const theme = createMuiTheme({
 	  },
 	},
   });
+
+

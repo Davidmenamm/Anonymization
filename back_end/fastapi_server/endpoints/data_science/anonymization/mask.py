@@ -1,28 +1,29 @@
-""" Apply Anonymization Masks to dataset columns"""
+""" Data Masking Anonymization """
 import pandas as pd
 
 
-
 """ Mask anonymization """
-def mask( df_part, direction, mask_num, symbol ):
+def mask( columns=[], direction='right', quantity=1, symbol='*' ):
+	print('mask')
+	print(columns,direction,quantity,symbol)
 	# columns names list
-	cols = df_part.columns.values
+	col_names = columns.columns.values
 	# iterate columns
-	for col in cols:
+	for col_name in col_names:
 		# store new values
 		values = []
 		# iterate rows
-		for value in df_part[col]:
+		for value in columns[col_name]:
 			# value length
 			val_len = len( str(value) )
 			# determine quantity if decimal
-			quantity = 0
-			if isinstance(mask_num, int):
-				quantity = mask_num
-			elif isinstance(mask_num, float):
-				quantity = int (val_len * mask_num // 1) # floor value
+			mask_num = 0
+			if isinstance(quantity, int):
+				mask_num = quantity
+			elif isinstance(quantity, float):
+				mask_num = int ( round(val_len * quantity, 0) )
 			# difference
-			diff = val_len - quantity
+			diff = val_len - mask_num
 			# make value iterable, in case it was not
 			val_vect = list( str(value) )
 			not_mask_vect = []
@@ -32,7 +33,7 @@ def mask( df_part, direction, mask_num, symbol ):
 			elif direction == 'left':
 				not_mask_vect = val_vect[-diff:]
 			# mask vector
-			mask_vect = [symbol] * quantity
+			mask_vect = [symbol] * mask_num
 			# join vectors
 			new_value = []
 			if direction == 'right':
@@ -42,8 +43,7 @@ def mask( df_part, direction, mask_num, symbol ):
 			new_val_str = ''.join(new_value)
 			# append value
 			values.append(new_val_str)
-		# substitute new values
-		df_part[col] = pd.Series( values )
-	df_part['DestCityName']
+		# add to dataframe
+		columns[col_name] = pd.Series( values )
 	# return
-	return df_part
+	return columns

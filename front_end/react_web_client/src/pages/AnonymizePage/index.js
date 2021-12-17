@@ -1,5 +1,9 @@
+/* anonymization page index */
+
+/* imports */
 import {SendRequest} from './SendRequest'
 
+/* component */
 export const AnonymizePage = () => {
   return (
     <>

@@ -1,19 +1,18 @@
+''' imports '''
 from fastapi import APIRouter, File, Form
 from starlette.responses import StreamingResponse
+from io import BytesIO
 from .anonymize import anonymize
-from io import StringIO, BytesIO
 import pandas as pd
 import timeit
 import json
-from utils.preprocess import preprocess
-
+''' router '''
 router = APIRouter(
 			prefix="/anonymization",
     		tags=["anonymization"],
 			responses={404: {"description": "Not found"}}
 			)
-
-
+''' anonymization main endpoint '''
 @router.post("/files", response_class = StreamingResponse)
 async def anonymization(file: bytes = File(...), config: str = Form(...)):
 	# time init
@@ -22,17 +21,9 @@ async def anonymization(file: bytes = File(...), config: str = Form(...)):
 	inMemoryFile = BytesIO(file)
 	# dataframe
 	df = pd.read_parquet(inMemoryFile)
-	# data types
-	# df.astype(
-
-	# )
-	# print( df )
-	# print( df.info() )
-	# df = pd.concat([inputDf]*5000)
-	# config object
 	config_obj = json.loads(config)
-	# preprocess
-	preprocess(df)
+	""" mention that the preprocessing is not done in the application"""
+	""" only the anonymization, therefore datasets must come ready"""
 	# send to function to handle anonymization
 	results_df = anonymize(df, config_obj)
 	# print( results_df )
@@ -63,28 +54,3 @@ async def anonymization(file: bytes = File(...), config: str = Form(...)):
 	return response
 
 
-
-
-# @router.post("/files", response_class = StreamingResponse)
-# async def anonymization(file: bytes = File(...), config: str = Form(...)):
-# 	# file as str
-# 	inputFileAsStr = StringIO(str(file,'utf-8'))
-# 	# dataframe
-# 	df = pd.read_csv(inputFileAsStr)
-# 	# send to function to handle anonymization
-# 	results_df = anonymize(df, config)
-# 	# output file
-# 	results_df = pd.concat([results_df]*70000, ignore_index=True)
-# 	outFileAsStr = StringIO()
-# 	results_df.to_csv(outFileAsStr, index = False)
-# 	# response
-# 	response = StreamingResponse(
-# 		iter([outFileAsStr.getvalue()]),
-# 		media_type='text/csv',
-#         headers={
-#             'Content-Disposition': 'attachment; filename=dataset.csv',
-# 			'Access-Control-Expose-Headers': 'Content-Disposition'
-#         }
-# 	)
-# 	# return
-# 	return response
