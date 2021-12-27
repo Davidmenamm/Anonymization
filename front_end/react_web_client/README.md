@@ -1,3 +1,13 @@
+# This is the frontend program for the anonymization web application
+
+Currently it only holds one main page which corresponds to the Form
+for loading the file and JSON string to be anonymized or pseudonymized
+with tokenization.
+
+It was built initially with the "Create React App" functionality,
+ which is explained below.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

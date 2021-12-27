@@ -1,51 +1,27 @@
-""" Program Main File """
-# imports
+''' main file '''
+''' imports '''
 import uvicorn
-import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import GaussianNB
-from sklearn import metrics
-
-# main obj
+from endpoints import router
+''' main app '''
 app = FastAPI()
-
-# cors
-origins = [
-    'http://localhost:3000',
-    'https://anonymization-cli.herokuapp.com'
-]
-
+''' CORS '''
+origins = ['http://localhost:3000']
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=['*'],
+    allow_headers=['*'],
 )
-
-
-@app.get("/")
+''' include router '''
+app.include_router(router.router)
+''' root endpoint '''
+@app.get('/')
 async def root():
-    path = 'data/hypothesis_0.csv'
-    # dataset
-    dataset = pd.read_csv(path, engine='c')
-    # target
-    target = dataset.iloc[:, 0]
-    # features
-    features = dataset.iloc[:, 1: len(dataset.columns)-1]
-    # train / test
-    X_train, X_test, y_train, y_test = train_test_split(
-        features, target, stratify=target, train_size=0.67)
-    # run classification
-    nbc = GaussianNB()
-    nbc.fit(X_train, y_train)
-    y_pred = nbc.predict(X_test)
-    acc = metrics.accuracy_score(y_test, y_pred)
-    return {"accuracy": f"Accuracy is {acc}"}
-
-
-if __name__=="__main__":
-    uvicorn.run("main:app",host='localhost', port=4557, reload=True, debug=True, workers=3)
+    return { 'message': 'Welcome to the Anonymization web server!'}
+''' run uvicorn server '''
+if __name__=='__main__':
+    uvicorn.run('main:app',host='localhost',
+        port=4557, reload=True, debug=True, workers=3)
