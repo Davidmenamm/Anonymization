@@ -3,57 +3,6 @@ Backend for anonymization web app.
 
 
 # JSON string config example
-{
-    "techniques" : {
-        "mask" : [
-            {
-                "columns": ["OriginCityName", "DestCityName"],
-                "direction": "left",
-                "quantity": 5,
-                "symbol": "*"
-            }
-        ],
-        "noise" : [
-            {
-                "columns": ["TaxiOut"],
-                "operator": "-",
-                "quantity": 5,
-                "rounding": 2,        
-                "rand": true,
-                "seed": 30
-            }
-        ],
-        "swap" : [
-            {
-                "columns": ["TaxiOut"],
-                "type": "independent",
-                "seed": 30
-            }
-        ],
-        "generalize" : [
-            {
-                "columns": ["TaxiOut"],
-                "num_range": 1000,
-                "str_level": 2,
-                "date_type": "year"
-            }
-        ],
-        "pseudonymization" : [
-            {
-                "unique_index": ["TaxiOut"],
-                "private_columns": ["TaxiOut"]
-            }
-        ]
-    }
-}
-
-
-"mask" : TARJETA., CORREO., FECHA_NACIMIENTO.
-"noise" : PROMEDIO
-"swap" :  SEMESTRE., CIUDAD.
-"generalize" : NOMBRE., EDAD., FECHA_REGISTRO.
-"pseudonymization" : CODIGO., DEUDAS DIRECCION.
-
 
 {
     "techniques" : {
@@ -99,7 +48,9 @@ Backend for anonymization web app.
                 "columns": ["date"],
                 "num_range": 1000,
                 "str_level": 2,
-                "date_type": "year"
+                "date_type": "year",
+                "day_first": true,
+                "year_first": false
             }
         ],
         "pseudonymization" : [

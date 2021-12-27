@@ -6,27 +6,18 @@ from .generalize import generalize
 import pandas as pd
 
 """ Anonymize function"""
-def anonymize(df, config):
-	print(type(config))
-	print(config)
-	# preprocess and etc ..., meanwhile done inside specific files
-	# validate in another file ... (especially no overlappingfiles)
-	# temporal reset_index
-	# df.reset_index( drop=True, inplace=True )	
-	print('df')
-	print(df)
+def techniques(df, config):
 	# apply pseudonymization
-	pseudonym = config['techniques'].pop('pseudonym', None)
+	pseudonym = config['techniques'].pop('pseudonymization', None)[0]
 	if pseudonym:
 		if 'unique_index' in pseudonym and 'private_columns' in pseudonym:
-			df.drop( labels=pseudonym['columns'], inplace=True )		
+			print('pseudo')
+			df.drop( labels=pseudonym['private_columns'], inplace=True, axis=1 )
+			print(df.columns.values)
+			print(df)
 	# apply anonymization
 	for name, configurations in config['techniques'].items():
-		print('configurations')
-		print(configurations)
 		for value in configurations:
-			print('value')
-			print(value)
 			# columns
 			columns = value.pop('columns', None)
 			if columns:
@@ -54,6 +45,7 @@ def anonymize(df, config):
 					df_mask = generalize(df.loc[:, columns], **value)
 					# add results
 					for col in columns: df[col] = df_mask[col]
+	print(df.columns.values)
 	print(df)
 	# return
 	return df

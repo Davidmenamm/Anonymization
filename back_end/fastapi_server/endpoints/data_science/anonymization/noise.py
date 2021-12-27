@@ -4,9 +4,7 @@ import random
 
 
 """ statistical noise anonymization, for numeric values """
-def noise( columns=[], operator='*', quantity=2, rounding=2, rand = False, seed = None ):
-    print('noise')
-    print(columns,operator,quantity,rounding,rand,seed)
+def noise( columns, operator='*', quantity=2, rounding=2, rand = False, seed = 0 ):
     # columns names list
     col_names = columns.columns.values
     # random seed

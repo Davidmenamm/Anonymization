@@ -2,9 +2,7 @@
 
 
 """ swapping anonymization """
-def swap( columns=[], type='independent', seed=0 ):
-    print('swap')
-    print(columns,type,seed)
+def swap( columns, type='independent', seed=0 ):
     # determine type
     if type == 'group':
         columns = columns.sample(   frac=1, random_state=seed, axis=0,

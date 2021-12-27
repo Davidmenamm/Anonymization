@@ -3,9 +3,7 @@ import pandas as pd
 
 
 """ Mask anonymization """
-def mask( columns=[], direction='right', quantity=1, symbol='*' ):
-	print('mask')
-	print(columns,direction,quantity,symbol)
+def mask( columns, direction='right', quantity=1, symbol='*' ):
 	# columns names list
 	col_names = columns.columns.values
 	# iterate columns
